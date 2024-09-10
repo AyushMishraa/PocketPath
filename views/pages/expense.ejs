@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expenses</title>
+</head>
+<body>
+    <h1> All  Expenses </h1>
+    <a href = "/expenses/new">Add New Expense</a>
+    <ul>
+    <% expenses.forEach(expense => { %>
+     <li><%= expense.title%> - <%=expense.amount%> - <%=expense.category%>
+        <form action="/expenses/<%=expense._id%>/delete" method = "POST">
+            <button type = "submit">Delete</button>
+        </form>
+     </li>
+    <% }) %>
+    </ul>
+</body>
+</html>
