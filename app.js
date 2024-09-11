@@ -4,6 +4,7 @@ const routes = require("./routes/index");
 const bodyParser = require("body-parser");
 const path = require("path");
 const connectDB = require("./connection");
+const methodOverride = require('method-override');
 require('dotenv').config();
 
 const PORT = 2000;
@@ -15,6 +16,8 @@ connectDB();
 //middlewares
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static(path.join(__dirname,'public')));
+app.use(methodOverride('_method'));
+
 
 //Set Ejs Template engine
 app.set("view engine","ejs");

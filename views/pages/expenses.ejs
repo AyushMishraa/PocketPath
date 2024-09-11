@@ -11,7 +11,7 @@
     <ul>
     <% expenses.forEach(expense => { %>
      <li><%= expense.title%> - <%=expense.amount%> - <%=expense.category%>
-        <form action="/expenses/<%=expense._id%>/delete" method = "POST">
+        <form action="/expenses/<%=expense._id%>/delete?_method=DELETE" method = "POST">
             <button type = "submit">Delete</button>
         </form>
      </li>

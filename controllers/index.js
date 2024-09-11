@@ -4,7 +4,7 @@ function handleHomePage (req,res){
    res.render('home');
 }
 
-// for create new expenses
+// for add new expenses
 async function handleExpense(req,res){
   const {title, amount, category} = req.body;
   const expense = new Expense({title, amount, category})
@@ -33,8 +33,15 @@ function addExpense(req,res){
 // delete an expense
 async function deleteExpense(req,res) {
   // req.params.id will get the id from url 
-  await Expense.findByIdAndDelete(req.params.id); 
-  res.redirect('/expenses');
+  try{
+    const id = req.params.id;
+    await Expense.findByIdAndDelete(id); 
+    res.redirect('/expenses');
+  }
+  catch(err){
+    console.log(err);
+    res.status(500).send("Server Error");
+  }
 }
 
 module.exports={

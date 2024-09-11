@@ -6,6 +6,18 @@
     <title>NewExpenses</title>
 </head>
 <body>
-    
+    <h1>Add New Expense</h1>
+    <form action="/expenses/add" method="POST">
+          <label for="title">Title</label>
+          <input id="title" type="text" name="title" required>
+
+          <label for="amount">Amount</label>
+          <input id="amount" type="number" name="amount" required>
+
+          <label for="category">Category</label>
+          <input  id="category" title="text" name="category" required>
+
+          <button type="submit">Add Expense</button>
+    </form>
 </body>
 </html>
