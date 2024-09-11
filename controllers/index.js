@@ -14,8 +14,15 @@ async function handleExpense(req,res){
 
 // show all expenses
 async function showExpenses(req,res){
-  const expenses = await Expense.find({})
-  res.render('pages/expense',expenses);
+  // const expenses = await Expense.find({})
+  // res.render('pages/expense',expenses);
+  try {
+    const expenses = await Expense.find({});  // Fetch all expenses from the database
+    res.render('pages/expenses', { expenses });  // Pass the expenses to the EJS template
+} catch (err) {
+    console.error(err);
+    res.status(500).send("Server Error");
+}
 }
 
 // render form to add expenses
