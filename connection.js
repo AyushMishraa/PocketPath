@@ -1,7 +1,10 @@
 const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+dotenv.config(); 
+
 const connectDB = async () => {
     try{
-        await mongoose.connect("mongodb+srv://cloudDBayush:PIaeqeBWk6ooYy3X@databaseayush.vnaad.mongodb.net/PocketPath")
+        await mongoose.connect(process.env.DB_HOST);
         console.log("MongoDB Atlas connected Successfully")
     }
     catch(err){
