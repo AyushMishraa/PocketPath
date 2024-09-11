@@ -4,6 +4,7 @@ const routes = require("./routes/index");
 const bodyParser = require("body-parser");
 const path = require("path");
 const connectDB = require("./connection");
+require('dotenv').config();
 
 const PORT = 2000;
 const app = express();
