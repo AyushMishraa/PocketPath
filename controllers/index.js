@@ -44,10 +44,35 @@ async function deleteExpense(req,res) {
   }
 }
 
+// Show the edit form for an expense
+async function handleEdit(req, res){
+  try {
+      const expense = await Expense.findById(req.params.id);  // Get the specific expense by ID
+      res.render('pages/edit-expenses', { expense });  // Render the form with current expense data
+  } catch (err) {
+      console.error(err);
+      res.status(500).send("Server Error");
+  }
+};
+// Handle the edit form submission and update the expense
+async function handleUpdate(req, res){
+  try {
+      const { title, amount, category } = req.body;
+      await Expense.findByIdAndUpdate(req.params.id, { title, amount, category });  // Update the expense
+      res.redirect('/expenses');  // Redirect back to the expenses list
+  } catch (err) {
+      console.error(err);
+      res.status(500).send("Server Error");
+  }
+};
+
+
 module.exports={
     handleHomePage,
     showExpenses,
     addExpense,
     deleteExpense,
     handleExpense,
+    handleEdit,
+    handleUpdate,
 }
