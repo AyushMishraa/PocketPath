@@ -7,7 +7,7 @@ const connectDB = require("./connection");
 const methodOverride = require('method-override');
 require('dotenv').config();
 
-const PORT = 2000;
+const PORT = process.env.PORT;
 const app = express();
 
 //mongoDB connection
