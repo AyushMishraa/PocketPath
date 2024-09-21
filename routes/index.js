@@ -1,5 +1,20 @@
 const express = require("express");
-const {handleHomePage,showExpenses,addExpense,deleteExpense,handleExpense, handleEdit, handleUpdate, handleSignup, handleLogin, showSignup, showLogin} = require("../controllers/index");
+
+const {
+       handleHomePage,
+       showExpenses,
+       addExpense,
+       deleteExpense,
+       handleExpense, 
+       handleEdit, 
+       handleUpdate, 
+       handleSignup, 
+       handleLogin, 
+       showSignup, 
+       showLogin, 
+       handleLogout
+    } = require("../controllers/index");
+
 const authenticateToken = require("../middlewares/auth")
 const router = express.Router();
 
@@ -14,5 +29,6 @@ router.get('/expenses/signup',showSignup);
 router.post('/expenses/signup',handleSignup);
 router.get('/expenses/login',showLogin);
 router.post('/expenses/login',handleLogin)
+router.get('/expenses/logout',handleLogout);
 
 module.exports = router;

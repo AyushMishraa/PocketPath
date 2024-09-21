@@ -124,6 +124,12 @@ function showLogin(req,res){
   res.render('pages/login');
 }
 
+function handleLogout(req, res) {
+  res.cookie("token", "", { expires: new Date(0), httpOnly: true });
+  res.redirect('/expenses/login');
+}
+
+
 module.exports={
     handleHomePage,
     showExpenses,
@@ -136,4 +142,5 @@ module.exports={
     handleLogin,
     showSignup,
     showLogin,
+    handleLogout,
 }
