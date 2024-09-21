@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const connectDB = require("./connection");
 const methodOverride = require('method-override');
+const cookieParser = require("cookie-parser");
 require('dotenv').config();
 
 const PORT = process.env.PORT;
@@ -17,6 +18,8 @@ connectDB();
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static(path.join(__dirname,'public')));
 app.use(methodOverride('_method'));
+app.use(bodyParser.json());
+app.use(cookieParser());
 
 
 //Set Ejs Template engine

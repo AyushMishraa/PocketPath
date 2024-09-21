@@ -1,4 +1,7 @@
-const Expense = require("../models/index")
+const Expense = require("../models/index");
+const user = require("../models/user");
+const jwt = require("jsonwebtoken");
+require('dotenv').config();
 
 function handleHomePage (req,res){
    res.render('home');
@@ -66,6 +69,60 @@ async function handleUpdate(req, res){
   }
 };
 
+// handling signup (registering new user)
+async function handleSignup(req,res){
+  const userName = req.body.userName;
+  const password = req.body.password;
+  console.log(userName);
+  try{
+    const existingUser = await user.findOne({userName});
+    if(existingUser){
+      return res.status(400).json({message:"user already exists"})
+    }
+
+    // creating a newUer and saving in the database
+    const newUser = new user({userName, password});
+    await newUser.save();
+
+    return res.redirect('/expenses/login')
+  }
+  catch(err){
+       console.log(err);
+       res.status(500).json({message: "Error while registering new user"});
+  }
+}
+
+async function handleLogin(req,res){
+   const {userName, password} = req.body;
+   try{
+    const User = await user.findOne({userName})
+    
+    if(!User){
+      return res.status(400).json({message: "Invalid User"})
+    }
+
+    const isMatch = await User.comparePassword(password);
+    if(!isMatch){
+      return res.status(400).json({message: "Invalid password"})
+    }
+
+    const token = jwt.sign({userName: User.userName}, process.env.JWT_SECRET);
+    console.log(token);
+    res.cookie("token",token, { httpOnly: true, secure: process.env.NODE_ENV === 'production' });
+    // console.log(req.cookies.token);
+    return res.redirect('/expenses');
+   } 
+   catch(err){
+    console.log(err);
+    res.status(500).json({message: "Server error"});
+   }
+}
+function showSignup(req,res){
+  res.render('pages/signup');
+}
+function showLogin(req,res){
+  res.render('pages/login');
+}
 
 module.exports={
     handleHomePage,
@@ -75,4 +132,8 @@ module.exports={
     handleExpense,
     handleEdit,
     handleUpdate,
+    handleSignup,
+    handleLogin,
+    showSignup,
+    showLogin,
 }
