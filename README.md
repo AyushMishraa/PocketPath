@@ -1,5 +1,3 @@
-Here's a comprehensive **README** file for your expense tracker project that includes sections for description, features, technologies, setup instructions, and more.
-
 ---
 
 # PocketPath - Expense Tracker
